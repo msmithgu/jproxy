@@ -4,6 +4,6 @@
   "version": "0.0.1",
   "dependencies": {
     "zappa": "0.3.3",
-    "socket.io-client": "0.8.7"
+    "socket.io-client": "0.9.6"
   }
 }
