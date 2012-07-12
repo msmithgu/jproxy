@@ -9,15 +9,12 @@ describe 'jproxy server', ->
         port: 3000
         path: '/post/foo'
         method: 'POST'
-
       req = request options, (res) ->
         # chunk will be a whole string because we setEncoding
         res.setEncoding('utf8')
         res.on 'data', (chunk) ->
           expect(chunk).toEqual('OK foo')
           done()
-
       req.on 'error', (e) ->
         console.log('problem with request: ' + e.message)
-
       req.end()
