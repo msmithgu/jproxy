@@ -4,4 +4,4 @@ zappa ->
   @get '/hello': ->
     'hi'
   @post '/post/:id': ->
-    'OK foo'
+    "OK #{@params.id}"
