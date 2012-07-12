@@ -3,12 +3,12 @@ jproxy  = require '../lib/jproxy'
 io      = require 'socket.io-client'
 
 describe 'jproxy server', ->
-  describe 'POST /post/foo', ->
+  describe 'POST /foo of "bar"', ->
     it 'should respond "OK foo"', (done) ->
       options =
         host: 'localhost'
         port: 3000
-        path: '/post/foo'
+        path: '/foo'
         method: 'POST'
       req = request options, (res) ->
         # chunk will be a whole string because we setEncoding

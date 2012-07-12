@@ -1,7 +1,7 @@
 zappa = require 'zappa'
 
 zappa ->
-  @post '/post/:id': ->
+  @post '/:id': ->
     "OK #{@params.id}"
 
   @on connection: ->
