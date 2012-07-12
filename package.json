@@ -1,0 +1,8 @@
+{
+  "name": "jproxy",
+  "author": "Mark Smith-Guerrero <msmithgu@gmail.com>",
+  "version": "0.0.1",
+  "dependencies": {
+    "zappa": "0.3.3"
+  }
+}
