@@ -4,7 +4,7 @@ jproxy
 Development
 -----------
 
-    # Install dev stuff globally:
+    # Install dev stuff globally
     npm install -g coffee-script supervisor jasmine-node
 
     # Setup tester
