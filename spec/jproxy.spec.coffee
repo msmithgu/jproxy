@@ -20,11 +20,24 @@ jreq = (options, callback) ->
   req.end()
 
 describe 'jproxy server', ->
+
+  describe 'socket connection', ->
+    socket = null
+    beforeEach () ->
+      socket = io.connect 'http://localhost:3000'
+
+    it 'should welcome with "hi"', (done) ->
+      socket.on 'welcome', (data) ->
+        expect(data).toEqual('hi')
+        socket.disconnect()
+        done()
+
   describe 'GET /foo', ->
     it 'should respond ""', (done) ->
       jreq {path: '/foo'}, (data) ->
         expect(data).toEqual('""')
         done()
+
   describe 'POST /foo of {data: "bar"}', ->
     it 'should respond "OK foo"', (done) ->
       mock_payload = qs.stringify {data: "bar"}
@@ -40,22 +53,12 @@ describe 'jproxy server', ->
       jreq options, (data) ->
         expect(data).toEqual('OK foo')
         done()
+
     describe 'GET /foo', ->
       it 'should now respond {"data":"bar"}', (done) ->
         jreq {path: '/foo'}, (data) ->
           expect(data).toEqual('{"data":"bar"}')
           done()
-
-  describe 'socket connection', ->
-    socket = null
-    beforeEach () ->
-      socket = io.connect 'http://localhost:3000'
-
-    it 'should welcome with "hi"', (done) ->
-      socket.on 'welcome', (data) ->
-        expect(data).toEqual('hi')
-        socket.disconnect()
-        done()
 
   describe 'POST /sherman-cda of github mock push', ->
     it 'should respond "OK sherman-cda"', (done) ->
