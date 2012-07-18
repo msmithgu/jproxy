@@ -1,4 +1,4 @@
-zappa = require 'zappa'
+zappa = require 'zappajs'
 
 class Jdata
   constructor: () ->
