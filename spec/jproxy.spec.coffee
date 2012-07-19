@@ -21,17 +21,6 @@ jreq = (options, callback) ->
 
 describe 'jproxy server', ->
 
-  describe 'socket connection', ->
-    socket = null
-    beforeEach () ->
-      socket = io.connect 'http://localhost:3000'
-
-    it 'should welcome with "hi"', (done) ->
-      socket.on 'welcome', (data) ->
-        expect(data).toEqual('hi')
-        socket.disconnect()
-        done()
-
   describe 'GET /posts/foo', ->
     it 'should respond ""', (done) ->
       jreq {path: '/posts/foo'}, (data) ->
@@ -75,4 +64,15 @@ describe 'jproxy server', ->
           'Content-Type': 'application/x-www-form-urlencoded'
       jreq options, (data) ->
         expect(data).toEqual('OK sherman-cda')
+        done()
+
+  describe 'socket connection', ->
+    socket = null
+    beforeEach () ->
+      socket = io.connect 'http://localhost:3000'
+
+    it 'should welcome with "hi"', (done) ->
+      socket.on 'welcome', (data) ->
+        expect(data).toEqual('hi')
+        socket.disconnect()
         done()
