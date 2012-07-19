@@ -3,8 +3,9 @@
   "author": "Mark Smith-Guerrero <msmithgu@gmail.com>",
   "version": "0.0.1",
   "dependencies": {
-    "zappajs": "0.3.x",
-    "qs": "0.5.x",
-    "socket.io-client": "0.9.x"
+    "express"           : "3.0.x",
+    "qs"                : "0.5.x",
+    "socket.io"         : "0.9.x",
+    "socket.io-client"  : "0.9.x"
   }
 }

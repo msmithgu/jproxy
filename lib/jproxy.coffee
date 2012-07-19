@@ -1,31 +1,21 @@
-zappa = require 'zappajs'
+io = require 'socket.io'
+express = require 'express'
+jd = require('./model')()
+app = express()
 
-class Jdata
-  constructor: () ->
-    @config =
-      post_limit: 5
-    @channels = {}
-  add: (id, post) ->
-    @channels[id] ?= []
-    @channels[id].unshift post
-    if @channels[id].length > @config.post_limit
-      @channels[id].pop
-  get: (id) ->
-    @channels[id]?[0]
+app.configure () ->
+  app.use express.bodyParser()
 
-jd = new Jdata
+app.get '/posts/:id', (req, res) ->
+  res.send (jd.get req.params.id)
 
-zappa ->
-  @use 'bodyParser'
-  @io.set 'log', false
+app.post '/posts/:id', (req, res) ->
+  jd.add req.params.id, req.body
+  res.send "OK #{req.params.id}"
 
-  @post '/posts/:id': ->
-    jd.add @params.id, @body
-    "OK #{@params.id}"
+server = app.listen 3000
+console.log 'http server started: http://localhost:3000/'
 
-  @get '/posts/:id': ->
-    post = jd.get @params.id
-    JSON.stringify post or ''
-
-  @on connection: ->
-    @emit welcome: 'hi'
+sio = io.listen server
+sio.sockets.on 'connection', (socket) ->
+  socket.emit 'welcome', 'hi'
