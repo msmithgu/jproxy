@@ -16,6 +16,9 @@ sio.of('/posts')
   .on 'connection', (socket) ->
     socket.emit 'welcome', 'hi'
 
+app.get '/', (req, res) ->
+  res.end "hi"
+
 app.get '/posts', (req, res) ->
   res.send '"' + (jd.get_channel_ids()).join() + '"'
 

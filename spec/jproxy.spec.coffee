@@ -28,6 +28,12 @@ describe 'jproxy server', ->
     last_post_id = data.id
     latest_posts[data.id] = data.post
 
+  describe 'GET /', ->
+    it 'should respond with nothing', (done) ->
+      jreq {path: '/'}, (data) ->
+        expect(data).toEqual('hi')
+        done()
+
   describe 'posts connection', ->
     it 'should welcome with "hi"', (done) ->
       posts.on 'welcome', (data) ->
