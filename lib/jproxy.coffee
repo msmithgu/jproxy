@@ -23,9 +23,9 @@ app.get '/posts/:id', (req, res) ->
   res.send (jd.get req.params.id)
 
 app.post '/posts/:id', (req, res) ->
-  id = req.params.id
-  payload = req.body.payload
-  jd.add id, payload
-  res.send "OK #{id}"
-  sio.of('/posts').emit 'new post', id
-  sio.of("/posts/#{id}").emit 'new post', payload
+  data =
+    id: req.params.id
+    post: req.body.payload
+  jd.add data.id, data.post
+  res.send "OK #{data.id}"
+  sio.of('/posts').emit 'new post', data

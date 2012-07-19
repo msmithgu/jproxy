@@ -23,8 +23,10 @@ describe 'jproxy server', ->
 
   posts = io.connect 'http://localhost:3000/posts'
   last_post_id = ''
+  latest_posts = {}
   posts.on 'new post', (data) ->
-    last_post_id = data
+    last_post_id = data.id
+    latest_posts[data.id] = data.post
 
   describe 'posts connection', ->
     it 'should welcome with "hi"', (done) ->
@@ -60,8 +62,9 @@ describe 'jproxy server', ->
             jreq options, (data) ->
               expect(data).toEqual('OK foo')
               done()
-          it 'should trigger new post socket event "foo"', (done) ->
+          it 'should trigger new post socket event', (done) ->
             expect(last_post_id).toEqual('foo')
+            expect(latest_posts['foo']).toEqual(mock_data)
             done()
 
           describe 'GET /posts/foo', ->
@@ -88,6 +91,10 @@ describe 'jproxy server', ->
           jreq options, (data) ->
             expect(data).toEqual('OK sherman-cda')
             done()
+        it 'should trigger new post socket event', (done) ->
+          expect(last_post_id).toEqual('sherman-cda')
+          expect(latest_posts['sherman-cda']).toEqual(mock_data)
+          done()
 
         describe 'GET /posts/sherman-cda', ->
           it 'should now respond with the mock github push', (done) ->
