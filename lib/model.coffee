@@ -10,6 +10,9 @@ class Jdata
       @channels[id].pop
   get: (id) ->
     @channels[id]?[0] or '""'
+  get_channel_ids: () ->
+    ids = for id, channel of @channels
+      id
 
 module.exports = () ->
   return new Jdata

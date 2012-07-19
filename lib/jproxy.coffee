@@ -14,11 +14,14 @@ sio.set 'log level', 4
 sio.sockets.on 'connection', (socket) ->
   socket.emit 'welcome', 'hi'
 
+app.get '/posts', (req, res) ->
+  res.send '"' + (jd.get_channel_ids()).join() + '"'
+
 app.get '/posts/:id', (req, res) ->
   res.send (jd.get req.params.id)
 
 app.post '/posts/:id', (req, res) ->
   jd.add req.params.id, req.body.payload
   res.send "OK #{req.params.id}"
-  #sio.of('').emit 'post', (jd.get req.params.id)
+  sio.of('').emit 'post', (jd.get req.params.id)
 
