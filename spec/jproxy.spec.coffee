@@ -21,7 +21,7 @@ jreq = (options, callback) ->
 
 describe 'jproxy server', ->
 
-  posts = io.connect 'http://localhost:3000'
+  posts = io.connect 'http://localhost:3000/posts'
   posts.on 'post', (data) ->
     console.log 'POST: ', data
 

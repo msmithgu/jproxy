@@ -11,7 +11,8 @@ console.log 'http server started: http://localhost:3000/'
 
 sio = io.listen server
 sio.set 'log level', 4
-sio.sockets.on 'connection', (socket) ->
+
+sio.of('/posts').on 'connection', (socket) ->
   socket.emit 'welcome', 'hi'
 
 app.get '/posts', (req, res) ->
