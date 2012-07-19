@@ -19,11 +19,11 @@ zappa ->
   @use 'bodyParser'
   @io.set 'log', false
 
-  @post '/:id': ->
+  @post '/posts/:id': ->
     jd.add @params.id, @body
     "OK #{@params.id}"
 
-  @get '/:id': ->
+  @get '/posts/:id': ->
     post = jd.get @params.id
     JSON.stringify post or ''
 
