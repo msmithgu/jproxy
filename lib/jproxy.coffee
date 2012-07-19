@@ -10,10 +10,11 @@ server = app.listen 3000
 console.log 'http server started: http://localhost:3000/'
 
 sio = io.listen server
-sio.set 'log level', 4
+sio.set 'log level', 1
 
-sio.of('/posts').on 'connection', (socket) ->
-  socket.emit 'welcome', 'hi'
+sio.of('/posts')
+  .on 'connection', (socket) ->
+    socket.emit 'welcome', 'hi'
 
 app.get '/posts', (req, res) ->
   res.send '"' + (jd.get_channel_ids()).join() + '"'
@@ -22,7 +23,9 @@ app.get '/posts/:id', (req, res) ->
   res.send (jd.get req.params.id)
 
 app.post '/posts/:id', (req, res) ->
-  jd.add req.params.id, req.body.payload
-  res.send "OK #{req.params.id}"
-  sio.of('').emit 'post', (jd.get req.params.id)
-
+  id = req.params.id
+  payload = req.body.payload
+  jd.add id, payload
+  res.send "OK #{id}"
+  sio.of('/posts').emit 'new post', id
+  sio.of("/posts/#{id}").emit 'new post', payload

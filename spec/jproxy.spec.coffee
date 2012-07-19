@@ -22,8 +22,9 @@ jreq = (options, callback) ->
 describe 'jproxy server', ->
 
   posts = io.connect 'http://localhost:3000/posts'
-  posts.on 'post', (data) ->
-    console.log 'POST: ', data
+  last_post_id = ''
+  posts.on 'new post', (data) ->
+    last_post_id = data
 
   describe 'posts connection', ->
     it 'should welcome with "hi"', (done) ->
@@ -59,6 +60,9 @@ describe 'jproxy server', ->
             jreq options, (data) ->
               expect(data).toEqual('OK foo')
               done()
+          it 'should trigger new post socket event "foo"', (done) ->
+            expect(last_post_id).toEqual('foo')
+            done()
 
           describe 'GET /posts/foo', ->
             it "should now respond #{mock_data}", (done) ->
