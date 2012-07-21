@@ -24,21 +24,24 @@ describe 'jproxy server', ->
   posts = io.connect 'http://localhost:3000/posts'
   last_post_id = ''
   latest_posts = {}
+  posts_welcome_message = ''
+  posts.on 'welcome', (data) ->
+    posts_welcome_message = data
+
   posts.on 'new post', (data) ->
     last_post_id = data.id
     latest_posts[data.id] = data.post
 
   describe 'GET /', ->
-    it 'should respond with nothing', (done) ->
+    it 'should respond with hi', (done) ->
       jreq {path: '/'}, (data) ->
         expect(data).toEqual('hi')
         done()
 
   describe 'posts connection', ->
     it 'should welcome with "hi"', (done) ->
-      posts.on 'welcome', (data) ->
-        expect(data).toEqual('hi')
-        done()
+      expect(posts_welcome_message).toEqual('hi')
+      done()
 
     describe 'GET /posts', ->
       it 'should respond ""', (done) ->
