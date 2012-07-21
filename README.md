@@ -9,8 +9,11 @@ Development
     echo '
     . ~/nvm/nvm.sh
     [[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
-    nvm use v0.8.1' >> ~/.bashrc
+    ' >> ~/.bashrc
     source ~/.bashrc
+
+    nvm install v0.8.1
+    nvm use v0.8.1
 
     # Install dev stuff globally
     npm install -g coffee-script supervisor jasmine-node
