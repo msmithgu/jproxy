@@ -83,13 +83,13 @@ describe 'jproxy server', ->
                 expect(data).toEqual(mock_data)
                 done()
 
-      describe 'POST /posts/sherman-cda of mock github push', ->
-        mock_data = '{ "after": "e4ffd72cb25e02260f34683ebcb36911a6731057", "before": "eb1e4709d072c901cc572e70f718037f54daf4c8", "commits": [ { "added": [], "author": { "email": "Mark.Smith-Guerrero@shrm.org", "name": "Mark Smith-Guerrero", "username": "msmithgu" }, "committer": { "email": "Mark.Smith-Guerrero@shrm.org", "name": "Mark Smith-Guerrero", "username": "msmithgu" }, "distinct": true, "id": "e4ffd72cb25e02260f34683ebcb36911a6731057", "message": "TESTFILE change", "modified": [ "TESTFILE" ], "removed": [], "timestamp": "2012-07-11T11:01:39-07:00", "url": "https://github.com/shrm-org/sherman-cda/commit/e4ffd72cb25e02260f34683ebcb36911a6731057" } ], "compare": "https://github.com/shrm-org/sherman-cda/compare/eb1e4709d072...e4ffd72cb25e", "created": false, "deleted": false, "forced": false, "head_commit": { "added": [], "author": { "email": "Mark.Smith-Guerrero@shrm.org", "name": "Mark Smith-Guerrero", "username": "msmithgu" }, "committer": { "email": "Mark.Smith-Guerrero@shrm.org", "name": "Mark Smith-Guerrero", "username": "msmithgu" }, "distinct": true, "id": "e4ffd72cb25e02260f34683ebcb36911a6731057", "message": "TESTFILE change", "modified": [ "TESTFILE" ], "removed": [], "timestamp": "2012-07-11T11:01:39-07:00", "url": "https://github.com/shrm-org/sherman-cda/commit/e4ffd72cb25e02260f34683ebcb36911a6731057" }, "pusher": { "email": "msmithgu@gmail.com", "name": "msmithgu" }, "ref": "refs/heads/cda.shrm.org", "repository": { "created_at": "2012-06-26T13:07:04-07:00", "description": "Content display engine component of the Sherman CMS.", "fork": false, "forks": 0, "has_downloads": true, "has_issues": true, "has_wiki": true, "language": "CoffeeScript", "master_branch": "develop", "name": "sherman-cda", "open_issues": 1, "organization": "shrm-org", "owner": { "email": "Rodney.Waldhoff@shrm.org", "name": "shrm-org" }, "private": true, "pushed_at": "2012-07-11T11:01:44-07:00", "size": 1816, "url": "https://github.com/shrm-org/sherman-cda", "watchers": 3 } }'
+      describe 'POST /posts/jproxy of mock github push', ->
+        mock_data = '{"pusher":{"name":"none"},"repository":{"name":"jproxy","has_wiki":true,"size":340,"created_at":"2012-07-12T10:45:29-07:00","private":false,"watchers":1,"language":"CoffeeScript","url":"https://github.com/msmithgu/jproxy","fork":false,"pushed_at":"2012-07-21T21:17:47-07:00","has_downloads":true,"open_issues":0,"has_issues":true,"forks":1,"description":"","owner":{"name":"msmithgu","email":"msmithgu@gmail.com"}},"forced":false,"after":"b5fa9392cefe10428301831ca2ec4b7096af2c7d","head_commit":{"added":[],"modified":["README.md"],"removed":[],"author":{"name":"Mark Smith-Guerrero","username":"msmithgu","email":"msmithgu@gmail.com"},"timestamp":"2012-07-21T21:17:42-07:00","url":"https://github.com/msmithgu/jproxy/commit/b5fa9392cefe10428301831ca2ec4b7096af2c7d","id":"b5fa9392cefe10428301831ca2ec4b7096af2c7d","distinct":true,"message":"added npm install . to README","committer":{"name":"Mark Smith-Guerrero","username":"msmithgu","email":"msmithgu@gmail.com"}},"deleted":false,"commits":[{"added":[],"modified":["spec/jproxy.spec.coffee"],"removed":[],"author":{"name":"Mark Smith-Guerrero","username":"msmithgu","email":"msmithgu@gmail.com"},"timestamp":"2012-07-21T10:43:54-07:00","url":"https://github.com/msmithgu/jproxy/commit/6ad17701e5f21d2816583cdffad077532144e37a","id":"6ad17701e5f21d2816583cdffad077532144e37a","distinct":true,"message":"adjusted posts welcome test to work better asynchronously","committer":{"name":"Mark Smith-Guerrero","username":"msmithgu","email":"msmithgu@gmail.com"}},{"added":[],"modified":["README.md"],"removed":[],"author":{"name":"Mark Smith-Guerrero","username":"msmithgu","email":"msmithgu@gmail.com"},"timestamp":"2012-07-21T11:09:17-07:00","url":"https://github.com/msmithgu/jproxy/commit/548ca6fc1eae9fcaa4d17c9b834ab5c512f256b6","id":"548ca6fc1eae9fcaa4d17c9b834ab5c512f256b6","distinct":true,"message":"made readme dev setup instructions copy/pastable","committer":{"name":"Mark Smith-Guerrero","username":"msmithgu","email":"msmithgu@gmail.com"}},{"added":[],"modified":["README.md"],"removed":[],"author":{"name":"Mark Smith-Guerrero","username":"msmithgu","email":"msmithgu@gmail.com"},"timestamp":"2012-07-21T21:17:42-07:00","url":"https://github.com/msmithgu/jproxy/commit/b5fa9392cefe10428301831ca2ec4b7096af2c7d","id":"b5fa9392cefe10428301831ca2ec4b7096af2c7d","distinct":true,"message":"added npm install . to README","committer":{"name":"Mark Smith-Guerrero","username":"msmithgu","email":"msmithgu@gmail.com"}}],"ref":"refs/heads/master","compare":"https://github.com/msmithgu/jproxy/compare/4aee9e9bd8dc...b5fa9392cefe","before":"4aee9e9bd8dca890e1bb01cb240418ec5d2dc73a","created":false}'
         mock_payload = qs.stringify { payload: mock_data }
-        it 'should respond "OK sherman-cda"', (done) ->
+        it 'should respond "OK jproxy"', (done) ->
           options =
             method: 'POST'
-            path: "/posts/sherman-cda"
+            path: "/posts/jproxy"
             data: mock_payload
             headers:
               'Content-Length': mock_payload.length
@@ -98,16 +98,16 @@ describe 'jproxy server', ->
               'Accept': '*/*'
               'Content-Type': 'application/x-www-form-urlencoded'
           jreq options, (data) ->
-            expect(data).toEqual('OK sherman-cda')
+            expect(data).toEqual('OK jproxy')
             done()
         it 'should trigger new post socket event', (done) ->
-          expect(last_post_id).toEqual('sherman-cda')
-          expect(latest_posts['sherman-cda']).toEqual(mock_data)
+          expect(last_post_id).toEqual('jproxy')
+          expect(latest_posts['jproxy']).toEqual(mock_data)
           done()
 
-        describe 'GET /posts/sherman-cda', ->
+        describe 'GET /posts/jproxy', ->
           it 'should now respond with the mock github push', (done) ->
-            jreq {path: '/posts/sherman-cda'}, (data) ->
+            jreq {path: '/posts/jproxy'}, (data) ->
               expect(typeof data).toEqual('string')
               expect(data).toEqual(mock_data)
               done()
