@@ -7,8 +7,8 @@ install_global:
 	npm install -g coffee-script supervisor jasmine-node
 
 install_node:
-	git clone git://github.com/creationix/nvm.git ~/nvm
-	echo '. ~/nvm/nvm.sh' >> ~/.bashrc
+	git clone git://github.com/creationix/nvm.git ~/.nvm
+	echo '. ~/.nvm/nvm.sh' >> ~/.bashrc
 	echo '[[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion' >> ~/.bashrc
 	source ~/.bashrc
 	nvm install v0.8.1
