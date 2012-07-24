@@ -20,8 +20,8 @@ edit:
 clean:
 	rm -rf node_modules
 
-test:
-	jasmine-node --coffee --verbose spec
+server:
+	coffee lib/jproxy.coffee
 
 tester:
-	supervisor -e coffee -w 'lib,spec' -n error -n exit -x jasmine-node -- --coffee --verbose spec
+	supervisor -e coffee -w 'examples,lib,spec' -n error -n exit -x jasmine-node -- --coffee --verbose spec
