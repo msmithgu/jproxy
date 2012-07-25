@@ -94,7 +94,6 @@ describe 'jproxy server', ->
     describe 'received data', ->
       it 'should be JSON parse-able and thereby accessible', (done) ->
         data = JSON.parse(latest_posts['jproxy'])
-        console.log data
         expect(data.ref).toEqual('refs/heads/master')
         expect(data.after).toEqual('b5fa9392cefe10428301831ca2ec4b7096af2c7d')
         done()
