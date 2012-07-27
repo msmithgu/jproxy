@@ -1,11 +1,14 @@
-require '../lib/jproxy'
+jproxy  = require '../lib/jproxy'
 qs      = require 'qs'
 request = require('http').request
 io      = require 'socket.io-client'
 
+testport = 3001
+jproxy.init testport
+
 jreq = (options, callback) ->
   options.host    ?= 'localhost'
-  options.port    ?= 3000
+  options.port    ?= testport
   options.method  ?= 'GET'
   options.path    ?= '/'
 
@@ -26,7 +29,7 @@ describe 'jproxy server', ->
   posts = null
 
   describe 'posts socket', ->
-    posts = io.connect 'http://localhost:3000/posts'
+    posts = io.connect "http://localhost:#{testport}/posts"
 
     it 'should connect', (done) ->
       posts.on 'connect', () ->
@@ -104,9 +107,3 @@ describe 'jproxy server', ->
           expect(typeof data).toEqual('string')
           expect(data).toEqual(mock_data)
           done()
-
-  describe 'posts socket', ->
-    it 'should disconnect cleanly', (done) ->
-      posts.on 'disconnect', () ->
-        done()
-      posts.disconnect()
