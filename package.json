@@ -14,7 +14,6 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules",
-    "prestart": "jasmine-node --coffee --forceexit spec",
     "start": "supervisor -e coffee -w 'lib,spec' -n error -n exit -x coffee -- server.coffee",
     "test": "jasmine-node --coffee --forceexit spec"
   }
